@@ -27,3 +27,6 @@ USER_AUTH_IDCARD_IS_ERROR = {'code': 1008, 'msg': '用户身份信息有误'}
 
 # 房屋模块
 MYHOUSE_USER_IS_NOT_AUTH = {'code': 2000, 'msg': '用户没有实名认证'}
+
+# 订单模块
+ORDER_START_TIME_GT_END_TIME = {'code': 3000, 'msg': '创建订单时间有误'}

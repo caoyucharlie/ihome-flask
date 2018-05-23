@@ -11,13 +11,22 @@ function decodeQuery(){
     }, {});
 }
 
-$(document).ready(function(){
-    var mySwiper = new Swiper ('.swiper-container', {
-        loop: true,
-        autoplay: 2000,
-        autoplayDisableOnInteraction: false,
-        pagination: '.swiper-pagination',
-        paginationType: 'fraction'
+$(document).ready(function () {
+
+    var path = document.location.search;
+    id = path.split('=')[1];
+    $.get('/house/detail/'+ id +'/',function (data) {
+        if(data.code=='200') {
+            var detail_house = template('house_detail_list',{ohouse:data.house, facility:data.facility_list});
+            $('.container').append(detail_house);
+            var mySwiper = new Swiper ('.swiper-container', {
+                loop: true,
+                autoplay: 2000,
+                autoplayDisableOnInteraction: false,
+                pagination: '.swiper-pagination',
+                paginationType: 'fraction'
+            });
+            $(".book-house").show();
+        }
     })
-    $(".book-house").show();
-})
+});

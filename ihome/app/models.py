@@ -31,8 +31,8 @@ class User(BaseModel, db.Model):
     id_name = db.Column(db.String(30))  # 实名认证姓名
     id_card = db.Column(db.String(18), unique=True)  # 实名认证身份证号码
 
-    # houses = db.relationship('House', backref='user')
-    # orders = db.relationship('Order', backref='user')
+    houses = db.relationship('House', backref='user')
+    orders = db.relationship('Order', backref='user')
 
     # 读
     @property

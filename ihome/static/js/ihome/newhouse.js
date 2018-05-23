@@ -29,3 +29,31 @@ $(document).ready(function(){
 })
 
 
+$('#form-house-info').submit(function () {
+    alert($(this).serialize())
+    $.post('/house/uploadhouse/', $(this).serialize(), function(data) {
+        if(data.code == '200'){
+            $('#form-house-info').hide()
+            $('#form-house-image').show()
+            $('#house-id').val(data.house_id)
+        }
+    });
+    return false;
+});
+
+$('#form-house-image').submit(function () {
+    $(this).ajaxSubmit({
+       url: '/house/images/',
+       type: 'post',
+       dataType: 'json',
+       success: function (data) {
+           if (data.code == '200'){
+               $('.house-image-cons').append('<img src="' + data.image_url + '">')
+           }
+       } ,
+        error: function (data) {
+            alert('上传房屋图片失败')
+        }
+    });
+    return false;
+})

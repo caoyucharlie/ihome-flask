@@ -47,3 +47,30 @@ $(document).ready(function(){
         }
     });
 })
+    $(document).ready(function () {
+        var path = location.search
+        id = path.split('=')[1]
+
+        $.get('/house/detail/' + id + '/', function (data) {
+            if(data.code == '200'){
+                var house_booking = template('house_booking', { ohouse:data.house})
+
+                $('.house-info').html(house_booking)
+            }
+        })
+
+        $('.submit-btn').click(function(){
+           var path = location.search
+           id = path.split('=')[1]
+
+            var start_date = $('#start-date').val()
+            var end_date = $('#end-date').val()
+           $.post('/order/', {house_id:id, start_time: start_date, end_time: end_date},
+               function(data){
+               if(data.code == '200'){
+                   // 跳转到订单的页面
+                    location.href = '/order/order/'
+               }
+               });
+        });
+    })

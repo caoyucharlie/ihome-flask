@@ -8,7 +8,7 @@ $(document).ready(function(){
             var house_list_html = ''
             for(var i=0; i<data.hlist_list.length; i++){
                 var house_html = '<li>'
-                house_html += '<a href="/house/detail/?id=' + data.hlist_list[i].id +'">'
+                house_html += '<a href="/house/detail/?id='+ data.hlist_list[i].id + '">'
                 house_html += '<div class="house-title">'
                 house_html += '<h3>房屋ID:' + data.hlist_list[i].id + ' —— ' + data.hlist_list[i].title +'</h3>'
                 house_html += '</div>'

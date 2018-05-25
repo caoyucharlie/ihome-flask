@@ -10,25 +10,25 @@ $(document).ready(function() {
     $("#password").focus(function(){
         $("#password-err").hide();
     });
-    $(".form-login").submit(function(e){
-        // e.preventDefault();
+    $(".form-login").submit(function(){
+
         mobile = $("#mobile").val();
         passwd = $("#password").val();
 
         $.ajax({
-            url: '/user/login/',
+            url:'/user/login/',
             type: 'POST',
             dataType: 'json',
-            data: {'mobile': mobile, 'password': passwd},
-            success: function (data) {
+            data: {'mobile': mobile, 'password':passwd},
+            success: function(data){
                 if(data.code == '200'){
                     location.href='/user/my/';
                 }
             },
-            error: function (data) {
-                alert(data)
+            error:function(data){
+                console.log(data)
+                alert(data);
             }
-
         })
     });
 })

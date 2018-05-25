@@ -21,4 +21,12 @@ $(document).ready(function(){
         var orderId = $(this).parents("li").attr("order-id");
         $(".modal-comment").attr("order-id", orderId);
     });
+
+    $.get('/order/allorders/', function(data){
+        if(data.code == '200'){
+            var order_html = template('orders-list-tmpl', {orders:data.order_list})
+            $('.orders-list').html(order_html)
+        }
+    });
+
 });

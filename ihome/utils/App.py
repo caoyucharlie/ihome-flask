@@ -3,7 +3,7 @@ from utils.settings import template_dir, static_dir
 from app.user_views import user_blueprint
 from utils.functions import init_ext
 from app.house_views import house_blueprint
-from app.order_vies import order_blueprint
+from app.order_views import order_blueprint
 
 
 def creat_app(config):

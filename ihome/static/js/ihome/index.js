@@ -44,12 +44,8 @@ function setEndDate() {
 }
 
 function goToSearchPage(th) {
-    var url = "/search.html?";
+    var url = "/house/search/?";
     url += ("aid=" + $(th).attr("area-id"));
-    url += "&";
-    var areaName = $(th).attr("area-name");
-    if (undefined == areaName) areaName="";
-    url += ("aname=" + areaName);
     url += "&";
     url += ("sd=" + $(th).attr("start-date"));
     url += "&";
@@ -85,3 +81,51 @@ $(document).ready(function(){
         $("#start-date-input").val(date);
     });
 })
+
+$.get('/house/hindex/', function(data){
+    if(data.code == '200'){
+        var user_name_html = template('user_info_re_lg', {user_name:data.user_name})
+        $('.top-bar').append(user_name_html)
+        if(data.user_name){
+            $('.user-info').show()
+        }else{
+            $('.register-login').show()
+        }
+
+        var swiper_house_image_html = template('swiper_house_image',{images:data.hlist})
+        $('.swiper-wrapper').html(swiper_house_image_html)
+
+        var mySwiper = new Swiper ('.swiper-container', {
+            loop: true,
+            autoplay: 2000,
+            autoplayDisableOnInteraction: false,
+            pagination: '.swiper-pagination',
+            paginationClickable: true
+        });
+
+        var alist_html = template('area_list_id', {alist:data.alist})
+        $('.area-list').html(alist_html)
+
+        $(".area-list a").click(function(e){
+            $("#area-btn").html($(this).html());
+            $(".search-btn").attr("area-id", $(this).attr("area-id"));
+            $(".search-btn").attr("area-name", $(this).html());
+            $("#area-modal").modal("hide");
+        });
+
+    }
+});
+
+function logout(){
+    $.ajax({
+        url:'/user/logout/',
+        type:'DELETE',
+        dateType:'json',
+        success:function(data){
+            if(data.code == '200'){
+                location.href='/house/index/'
+            }
+        }
+    });
+
+}
